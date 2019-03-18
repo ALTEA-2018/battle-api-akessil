@@ -1,14 +1,10 @@
 package com.miage.altea.tp.battle_api.trainer.bo;
 
-import javax.persistence.*;
 import java.util.List;
 
-@Entity
 public class Trainer {
-    @Id
     private String name;
 
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<Pokemon> team;
 
     public Trainer() {
