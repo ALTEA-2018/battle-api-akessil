@@ -1,9 +1,11 @@
-package com.miage.altea.tp.battle_api.trainer.bo;
+package com.miage.altea.tp.battle_api.pokemon_info.bo;
 
-public class Pokemon {
+import com.miage.altea.tp.battle_api.pokemon_type.bo.PokemonType;
+
+public class PokemonInfo {
     private int id;
 
-    private int pokemonType;
+    private PokemonType pokemonType;
 
     private int level;
 
@@ -15,11 +17,11 @@ public class Pokemon {
         this.id = id;
     }
 
-    public int getPokemonType() {
+    public PokemonType getPokemonType() {
         return pokemonType;
     }
 
-    public void setPokemonType(int pokemonType) {
+    public void setPokemonType(PokemonType pokemonType) {
         this.pokemonType = pokemonType;
     }
 
