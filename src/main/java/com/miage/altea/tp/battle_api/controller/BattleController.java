@@ -1,25 +1,22 @@
 package com.miage.altea.tp.battle_api.controller;
 
 import com.miage.altea.tp.battle_api.bo.Battle;
+import com.miage.altea.tp.battle_api.input.CreatebattleInput;
 import com.miage.altea.tp.battle_api.mapper.PokemonMapper;
 import com.miage.altea.tp.battle_api.pokemon_info.TrainerInfoService;
-import com.miage.altea.tp.battle_api.pokemon_info.bo.PokemonInfo;
 import com.miage.altea.tp.battle_api.pokemon_info.bo.TrainerInfo;
-import com.miage.altea.tp.battle_api.pokemon_type.bo.PokemonType;
 import com.miage.altea.tp.battle_api.pokemon_type.service.PokemonTypeService;
 import com.miage.altea.tp.battle_api.service.BattleService;
-import com.miage.altea.tp.battle_api.trainer.bo.Pokemon;
 import com.miage.altea.tp.battle_api.trainer.bo.Trainer;
 import com.miage.altea.tp.battle_api.trainer.service.TrainerService;
+import org.jboss.logging.Param;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 
 @Controller
-@RequestMapping("/battle-api")
+@RequestMapping("/battles")
+@RestController
 public class BattleController {
 
     private PokemonTypeService pokemonTypeService;
@@ -37,14 +34,14 @@ public class BattleController {
         pokemonMapper = PokemonMapper.getInstance();
     }
 
-    @GetMapping(value = "/new", params = {"trainer", "opponent"})
-    Battle getPokemonTypeFromName(@RequestParam("trainer") String trainerName, @RequestParam("opponent") String opponentName){
-        if(trainerName==null || trainerName.isEmpty() || opponentName == null || opponentName.isEmpty()) {
+    @PostMapping(value = "/")
+    Battle getPokemonTypeFromName(@RequestBody CreatebattleInput input){
+        if(input == null || input.getTrainer()==null || input.getTrainer().isEmpty() || input.getOpponent() == null || input.getOpponent().isEmpty()) {
             return null;
         }
 
-        Trainer trainer = this.trainerService.getTrainerByName(trainerName);
-        Trainer opponent = this.trainerService.getTrainerByName(opponentName);
+        Trainer trainer = this.trainerService.getTrainerByName(input.getTrainer());
+        Trainer opponent = this.trainerService.getTrainerByName(input.getOpponent());
 
         TrainerInfo trainerInfo = trainerInfoService.getTrainerInfo(trainer);
         TrainerInfo opponentInfo = trainerInfoService.getTrainerInfo(opponent);

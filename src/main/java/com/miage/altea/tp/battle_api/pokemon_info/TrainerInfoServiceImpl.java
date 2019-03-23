@@ -8,10 +8,12 @@ import com.miage.altea.tp.battle_api.pokemon_type.bo.PokemonType;
 import com.miage.altea.tp.battle_api.pokemon_type.service.PokemonTypeService;
 import com.miage.altea.tp.battle_api.trainer.bo.Pokemon;
 import com.miage.altea.tp.battle_api.trainer.bo.Trainer;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Service
 public class TrainerInfoServiceImpl implements TrainerInfoService{
     private PokemonTypeService pokemonTypeService;
 

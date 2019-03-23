@@ -7,6 +7,8 @@ public class Trainer {
 
     private List<Pokemon> team;
 
+    public Trainer(){}
+
     public Trainer(String name) {
         this.name = name;
     }

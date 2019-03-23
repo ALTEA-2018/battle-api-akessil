@@ -46,6 +46,7 @@ public class BattlePokemonFactory {
 
         for(PokemonInfo pokemonInfo : pokemons) {
             BattlePokemon battlePokemon = this.createBattlePokemon(pokemonInfo);
+            battlePokemons.add(battlePokemon);
         }
 
         return battlePokemons;

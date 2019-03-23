@@ -4,9 +4,11 @@ import com.miage.altea.tp.battle_api.bo.Battle;
 import com.miage.altea.tp.battle_api.bo.BattleTrainer;
 import com.miage.altea.tp.battle_api.pokemon_info.bo.TrainerInfo;
 import com.miage.altea.tp.battle_api.service.factory.BattlePokemonFactory;
+import org.springframework.stereotype.Service;
 
 import java.util.UUID;
 
+@Service
 public class BattleServiceImpl implements BattleService {
     private final BattlePokemonFactory battlePokemonFactory;
 
