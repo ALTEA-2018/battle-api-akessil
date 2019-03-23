@@ -35,7 +35,7 @@ public class BattleController {
     }
 
     @PostMapping(value = "/")
-    Battle getPokemonTypeFromName(@RequestBody CreatebattleInput input){
+    Battle createNewwBattle(@RequestBody CreatebattleInput input){
         if(input == null || input.getTrainer()==null || input.getTrainer().isEmpty() || input.getOpponent() == null || input.getOpponent().isEmpty()) {
             return null;
         }
