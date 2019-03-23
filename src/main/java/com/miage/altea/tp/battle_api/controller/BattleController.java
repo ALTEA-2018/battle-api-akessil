@@ -35,7 +35,7 @@ public class BattleController {
     }
 
     @PostMapping(value = "/")
-    Battle createNewwBattle(@RequestBody CreatebattleInput input){
+    public String createNewwBattle(@RequestBody CreatebattleInput input){
         if(input == null || input.getTrainer()==null || input.getTrainer().isEmpty() || input.getOpponent() == null || input.getOpponent().isEmpty()) {
             return null;
         }
@@ -48,7 +48,7 @@ public class BattleController {
 
         Battle battle = battleService.createBattle(trainerInfo, opponentInfo);
 
-        return battle;
+        return battle.getUuid();
     }
 
 }
