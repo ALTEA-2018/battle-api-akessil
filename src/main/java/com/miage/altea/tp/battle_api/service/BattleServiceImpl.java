@@ -43,4 +43,9 @@ public class BattleServiceImpl implements BattleService {
     public Set<String> getAllBattles() {
         return battleRepository.findAll();
     }
+    @Override
+    public Battle findBattle(String uuid) {
+        return battleRepository.find(uuid);
+    }
+
 }

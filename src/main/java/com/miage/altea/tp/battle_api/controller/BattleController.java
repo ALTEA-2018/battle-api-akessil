@@ -59,4 +59,12 @@ public class BattleController {
         return battleService.getAllBattles();
     }
 
+    @GetMapping("/{uuid}")
+    public Battle getAllBattle(@PathVariable String uuid){
+        if(uuid == null || uuid.isEmpty()) {
+            return null;
+        }
+        return  battleService.findBattle(uuid);
+    }
+
 }

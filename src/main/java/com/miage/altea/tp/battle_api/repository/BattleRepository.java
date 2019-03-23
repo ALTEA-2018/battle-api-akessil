@@ -7,4 +7,5 @@ import java.util.Set;
 public interface BattleRepository {
     void saveBattle(Battle battle);
     Set<String> findAll();
+    Battle find(String uuid);
 }

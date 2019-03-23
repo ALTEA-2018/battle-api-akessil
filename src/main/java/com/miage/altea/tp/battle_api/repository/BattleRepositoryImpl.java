@@ -4,7 +4,6 @@ import com.miage.altea.tp.battle_api.bo.Battle;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -24,5 +23,10 @@ public class BattleRepositoryImpl implements BattleRepository{
     @Override
     public Set<String> findAll() {
         return battles.keySet();
+    }
+
+    @Override
+    public Battle find(String uuid) {
+        return battles.get(uuid);
     }
 }
