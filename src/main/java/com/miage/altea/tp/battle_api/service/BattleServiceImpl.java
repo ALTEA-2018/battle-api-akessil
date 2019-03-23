@@ -7,6 +7,8 @@ import com.miage.altea.tp.battle_api.repository.BattleRepository;
 import com.miage.altea.tp.battle_api.service.factory.BattlePokemonFactory;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 
 @Service
@@ -35,5 +37,10 @@ public class BattleServiceImpl implements BattleService {
 
         this.battleRepository.saveBattle(battle);
         return battle;
+    }
+
+    @Override
+    public Set<String> getAllBattles() {
+        return battleRepository.findAll();
     }
 }

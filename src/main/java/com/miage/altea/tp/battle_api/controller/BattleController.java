@@ -13,6 +13,9 @@ import org.jboss.logging.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+import java.util.Set;
+
 
 @Controller
 @RequestMapping("/battles")
@@ -34,7 +37,7 @@ public class BattleController {
         pokemonMapper = PokemonMapper.getInstance();
     }
 
-    @PostMapping(value = "/")
+    @PostMapping(value = "")
     public String createNewwBattle(@RequestBody CreatebattleInput input){
         if(input == null || input.getTrainer()==null || input.getTrainer().isEmpty() || input.getOpponent() == null || input.getOpponent().isEmpty()) {
             return null;
@@ -49,6 +52,11 @@ public class BattleController {
         Battle battle = battleService.createBattle(trainerInfo, opponentInfo);
 
         return battle.getUuid();
+    }
+
+    @GetMapping("")
+    public Set<String> getAllBattles(){
+        return battleService.getAllBattles();
     }
 
 }
