@@ -34,11 +34,4 @@ public class StatCalculatorTest {
         var expectedHP = 20;
         assertEquals(expectedHP, hp );
     }
-
-    @Test
-    public void calculateDamageTest(){
-        var damage= calculator.calculateDamage(6,15, 10);
-        var expectedDamage = 7;
-        assertEquals(expectedDamage, damage );
-    }
 }

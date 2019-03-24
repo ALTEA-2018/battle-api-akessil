@@ -24,18 +24,6 @@ public class StatCalculator {
         return hp;
     }
 
-    /**
-     *
-     * @param level: trainer pokemon level
-     * @param attack: trainer pokemon attack
-     * @param defense: opponent pokemon defense
-     * @return
-     */
-    public int calculateDamage(int level, int attack, int defense){
-        int damage = (int)( (2 * (float)level/5) + (2 * (((float)attack/defense))) )+2;
-        return damage;
-    }
-
     private int calculateStat(int level, int baseStat){
         int stat = 5 + (baseStat * level/50);
         return stat;

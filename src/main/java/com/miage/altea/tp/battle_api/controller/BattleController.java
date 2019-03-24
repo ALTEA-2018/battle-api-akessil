@@ -67,4 +67,9 @@ public class BattleController {
         return  battleService.findBattle(uuid);
     }
 
+    @PostMapping("/{uuid}/{trainerName}/attack")
+    public Battle attack(@PathVariable String uuid, @PathVariable String trainerName){
+        return battleService.attack(uuid, trainerName);
+
+    }
 }

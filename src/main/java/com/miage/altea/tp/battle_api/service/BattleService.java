@@ -9,4 +9,5 @@ public interface BattleService {
     Battle createBattle(TrainerInfo trainer, TrainerInfo opponent);
     Set<String> getAllBattles();
     Battle findBattle(String uuid);
+    Battle attack(String uuid, String trainername);
 }
