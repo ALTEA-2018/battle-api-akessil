@@ -1,4 +1,4 @@
-package com.miage.altea.tp.battle_api.service.factory;
+package com.miage.altea.tp.battle_api.service.util;
 
 public class StatCalculator {
     private static StatCalculator INSTANCE = new StatCalculator();

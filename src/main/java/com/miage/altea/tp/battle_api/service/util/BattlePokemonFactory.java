@@ -1,7 +1,6 @@
-package com.miage.altea.tp.battle_api.service.factory;
+package com.miage.altea.tp.battle_api.service.util;
 
 
-import com.miage.altea.tp.battle_api.bo.Battle;
 import com.miage.altea.tp.battle_api.bo.BattlePokemon;
 import com.miage.altea.tp.battle_api.pokemon_info.bo.PokemonInfo;
 

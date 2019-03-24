@@ -1,4 +1,4 @@
-package com.miage.altea.tp.battle_api.service.factory;
+package com.miage.altea.tp.battle_api.service.util;
 
 import org.junit.jupiter.api.Test;
 

@@ -5,8 +5,8 @@ import com.miage.altea.tp.battle_api.bo.BattlePokemon;
 import com.miage.altea.tp.battle_api.bo.BattleTrainer;
 import com.miage.altea.tp.battle_api.pokemon_info.bo.TrainerInfo;
 import com.miage.altea.tp.battle_api.repository.BattleRepository;
-import com.miage.altea.tp.battle_api.service.factory.AttackCalculator;
-import com.miage.altea.tp.battle_api.service.factory.BattlePokemonFactory;
+import com.miage.altea.tp.battle_api.service.util.AttackCalculator;
+import com.miage.altea.tp.battle_api.service.util.BattlePokemonFactory;
 import org.springframework.stereotype.Service;
 
 import java.util.Set;
