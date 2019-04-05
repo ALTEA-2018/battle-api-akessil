@@ -63,26 +63,26 @@ public class BattleServiceImpl implements BattleService {
     }
 
     @Override
-    public ResponseEntity attack(String uuid, String trainerName) {
+    public ResponseEntity attack(String uuid, String attackerName) {
         Battle battle = battleRepository.find(uuid);
         if(battle == null) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Battle Not Found");
         }
 
-        BattleTrainer attacker = battle.getTrainer().getName().equals(trainerName) ? battle.getTrainer() : (battle.getOpponent().getName().equals(trainerName) ? battle.getOpponent() : null);
+        BattleTrainer attacker = battle.getTrainer().getName().equals(attackerName) ? battle.getTrainer() : (battle.getOpponent().getName().equals(attackerName) ? battle.getOpponent() : null);
 
         if(attacker == null) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("The trainer is not part of the battle");
         }
 
         if(! attacker.getNextTurn()) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("It's your opponent's turn");
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Not your turn!");
         }
 
-        BattleTrainer victim = attacker.getName().equals(trainerName) ? battle.getOpponent() : battle.getTrainer();
+        BattleTrainer victim = attacker.getName().equals(battle.getTrainer().getName()) ? battle.getOpponent() : battle.getTrainer();
 
-        BattlePokemon pokemonAttacker = this.getFirstAlive(battle.getTrainer().getTeam());
-        BattlePokemon pokemonVictim = this.getFirstAlive(battle.getOpponent().getTeam());
+        BattlePokemon pokemonAttacker = this.getFirstAlive(attacker.getTeam());
+        BattlePokemon pokemonVictim = this.getFirstAlive(victim.getTeam());
 
         int pokemonAttackLevel = pokemonAttacker.getLevel();
         int pokemonAttack = pokemonAttacker.getAttack();

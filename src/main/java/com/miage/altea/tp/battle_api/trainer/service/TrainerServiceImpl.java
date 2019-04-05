@@ -2,6 +2,7 @@ package com.miage.altea.tp.battle_api.trainer.service;
 
 import com.miage.altea.tp.battle_api.trainer.bo.Trainer;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.retry.annotation.Retryable;
@@ -24,6 +25,7 @@ public class TrainerServiceImpl implements TrainerService{
     }
 
     @Autowired
+    @Qualifier("trainerApiRestTemplate")
     public void setRestTemplate(RestTemplate restTemplate) {
         this.restTemplate = restTemplate;
     }

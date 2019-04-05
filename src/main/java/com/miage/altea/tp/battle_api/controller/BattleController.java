@@ -9,6 +9,7 @@ import com.miage.altea.tp.battle_api.pokemon_type.service.PokemonTypeService;
 import com.miage.altea.tp.battle_api.service.BattleService;
 import com.miage.altea.tp.battle_api.trainer.bo.Trainer;
 import com.miage.altea.tp.battle_api.trainer.service.TrainerService;
+import org.apache.tomcat.util.descriptor.tld.TldRuleSet;
 import org.jboss.logging.Param;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -18,9 +19,8 @@ import java.util.List;
 import java.util.Set;
 
 
-@Controller
-@RequestMapping("/battles")
 @RestController
+@RequestMapping("/battles")
 public class BattleController {
 
     private PokemonTypeService pokemonTypeService;
@@ -39,7 +39,7 @@ public class BattleController {
     }
 
     @PostMapping(value = "")
-    public String createNewwBattle(@RequestBody CreatebattleInput input){
+    public String createNewBattle(@RequestBody CreatebattleInput input){
         if(input == null || input.getTrainer()==null || input.getTrainer().isEmpty() || input.getOpponent() == null || input.getOpponent().isEmpty()) {
             return null;
         }
@@ -53,6 +53,15 @@ public class BattleController {
         Battle battle = battleService.createBattle(trainerInfo, opponentInfo);
 
         return battle.getUuid();
+    }
+
+    @PostMapping(value = "", params = {"trainer","opponent"})
+    public String createNewBattle2(@RequestParam("trainer") String trainer, @RequestParam("opponent") String opponent){
+        CreatebattleInput input = new CreatebattleInput();
+        input.setOpponent(opponent);
+        input.setTrainer(trainer);
+
+        return createNewBattle(input);
     }
 
     @GetMapping("")
