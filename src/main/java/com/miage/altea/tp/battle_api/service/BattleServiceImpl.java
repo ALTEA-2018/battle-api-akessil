@@ -7,8 +7,11 @@ import com.miage.altea.tp.battle_api.pokemon_info.bo.TrainerInfo;
 import com.miage.altea.tp.battle_api.repository.BattleRepository;
 import com.miage.altea.tp.battle_api.service.util.AttackCalculator;
 import com.miage.altea.tp.battle_api.service.util.BattlePokemonFactory;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
@@ -35,6 +38,14 @@ public class BattleServiceImpl implements BattleService {
         BattleTrainer battleOpponent = new BattleTrainer(opponent.getName());
         battleOpponent.setTeam(battlePokemonFactory.getBattlePokemons(opponent.getTeam()));
 
+        if(getFirstAlive(battleTrainer.getTeam()).getSpeed() >= getFirstAlive(battleOpponent.getTeam()).getSpeed()) {
+            battleTrainer.setNextTurn(true);
+            battleOpponent.setNextTurn(false);
+        } else {
+            battleTrainer.setNextTurn(false);
+            battleOpponent.setNextTurn(true);
+        }
+
         battle.setTrainer(battleTrainer);
         battle.setOpponent(battleOpponent);
 
@@ -52,10 +63,26 @@ public class BattleServiceImpl implements BattleService {
     }
 
     @Override
-    public Battle attack(String uuid, String trainerName) {
+    public ResponseEntity attack(String uuid, String trainerName) {
         Battle battle = battleRepository.find(uuid);
-        BattlePokemon pokemonAttacker = battle.getTrainer().getTeam().get(0);
-        BattlePokemon pokemonVictim = battle.getOpponent().getTeam().get(0);
+        if(battle == null) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Battle Not Found");
+        }
+
+        BattleTrainer attacker = battle.getTrainer().getName().equals(trainerName) ? battle.getTrainer() : (battle.getOpponent().getName().equals(trainerName) ? battle.getOpponent() : null);
+
+        if(attacker == null) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("The trainer is not part of the battle");
+        }
+
+        if(! attacker.getNextTurn()) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("It's your opponent's turn");
+        }
+
+        BattleTrainer victim = attacker.getName().equals(trainerName) ? battle.getOpponent() : battle.getTrainer();
+
+        BattlePokemon pokemonAttacker = this.getFirstAlive(battle.getTrainer().getTeam());
+        BattlePokemon pokemonVictim = this.getFirstAlive(battle.getOpponent().getTeam());
 
         int pokemonAttackLevel = pokemonAttacker.getLevel();
         int pokemonAttack = pokemonAttacker.getAttack();
@@ -65,9 +92,23 @@ public class BattleServiceImpl implements BattleService {
         int hp = pokemonVictim.getHp() - damages;
         hp = hp > 0 ? hp : 0;
         pokemonVictim.setHp(hp);
+        pokemonVictim.setAlive(hp > 0);
+        pokemonVictim.setKo(hp <= 0);
+
+        attacker.setNextTurn(false);
+        victim.setNextTurn(true);
 
         battleRepository.saveBattle(battle);
-        return battle;
+        return ResponseEntity.status(HttpStatus.OK).body(battle);
+    }
+
+    private BattlePokemon getFirstAlive(List<BattlePokemon> pokemons){
+        for (BattlePokemon pokemon : pokemons) {
+            if(pokemon.getAlive()) {
+                return  pokemon;
+            }
+        }
+        return null;
     }
 
 }

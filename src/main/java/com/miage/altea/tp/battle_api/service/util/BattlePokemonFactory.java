@@ -28,15 +28,15 @@ public class BattlePokemonFactory {
         BattlePokemon battlePokemon = new BattlePokemon();
         battlePokemon.setId(pokemonInfo.getId());
         battlePokemon.setLevel(level);
-        battlePokemon.setPokemonType(pokemonInfo.getPokemonType().getId());
+        battlePokemon.setType(pokemonInfo.getPokemonType());
 
-        //toFix
-        battlePokemon.setMaxHp(36);
+        battlePokemon.setMaxHp(calculator.calculateHP(level,baseHp));
         battlePokemon.setAttack(calculator.calculateAttack(level, baseAttack));
         battlePokemon.setDefense(calculator.calculateDefense(level,baseDefense));
         battlePokemon.setSpeed(calculator.calculateSpeed(level,baseSpeed));
         battlePokemon.setHp(calculator.calculateHP(level,baseHp));
-
+        battlePokemon.setKo(battlePokemon.getHp() <= 0 ? true : false);
+        battlePokemon.setAlive(battlePokemon.getHp() > 0 ? true : false);
         return battlePokemon;
     }
 

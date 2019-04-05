@@ -9,6 +9,8 @@ public class BattleTrainer {
 
     private List<BattlePokemon> team;
 
+    private Boolean nextTurn;
+
     public BattleTrainer(String name){
         this.name = name;
         team = new ArrayList<>();
@@ -24,5 +26,17 @@ public class BattleTrainer {
 
     public void setTeam(List<BattlePokemon> team) {
         this.team = team;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Boolean getNextTurn() {
+        return nextTurn;
+    }
+
+    public void setNextTurn(Boolean nextTurn) {
+        this.nextTurn = nextTurn;
     }
 }

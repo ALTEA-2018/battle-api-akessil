@@ -4,13 +4,15 @@ import com.miage.altea.tp.battle_api.pokemon_type.bo.PokemonType;
 
 public class BattlePokemon {
     private int id;
-    private int pokemonType;
-    private int level;
+    private PokemonType type;
     private int maxHp;
     private int attack;
     private int defense;
     private int speed;
+    private int level;
     private int hp;
+    private Boolean ko;
+    private Boolean alive;
 
 
     public int getId() {
@@ -21,12 +23,12 @@ public class BattlePokemon {
         this.id = id;
     }
 
-    public int getPokemonType() {
-        return pokemonType;
+    public PokemonType getType() {
+        return type;
     }
 
-    public void setPokemonType(int pokemonType) {
-        this.pokemonType = pokemonType;
+    public void setType(PokemonType type) {
+        this.type = type;
     }
 
     public int getLevel() {
@@ -75,5 +77,21 @@ public class BattlePokemon {
 
     public void setHp(int hp) {
         this.hp = hp;
+    }
+
+    public Boolean getKo() {
+        return ko;
+    }
+
+    public void setKo(Boolean ko) {
+        this.ko = ko;
+    }
+
+    public Boolean getAlive() {
+        return alive;
+    }
+
+    public void setAlive(Boolean alive) {
+        this.alive = alive;
     }
 }

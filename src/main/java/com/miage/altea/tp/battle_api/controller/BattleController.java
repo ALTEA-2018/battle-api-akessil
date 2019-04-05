@@ -10,6 +10,7 @@ import com.miage.altea.tp.battle_api.service.BattleService;
 import com.miage.altea.tp.battle_api.trainer.bo.Trainer;
 import com.miage.altea.tp.battle_api.trainer.service.TrainerService;
 import org.jboss.logging.Param;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -68,7 +69,7 @@ public class BattleController {
     }
 
     @PostMapping("/{uuid}/{trainerName}/attack")
-    public Battle attack(@PathVariable String uuid, @PathVariable String trainerName){
+    public ResponseEntity attack(@PathVariable String uuid, @PathVariable String trainerName){
         return battleService.attack(uuid, trainerName);
 
     }
